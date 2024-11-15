@@ -1,7 +1,7 @@
 const axios = require('axios');
 const https = require('https');
 const { extractDatas } = require('../Extractor/dataExtractor');
-
+const cron = require('node-cron')
 
 const agent = new https.Agent({  
     rejectUnauthorized: false
@@ -19,3 +19,8 @@ exports.getAllJobs = async (request, response) => {
         response.status(500).json({ message: error.message });
     }
 };
+cron.schedule('* * * * *', async () => {
+    console.log('Fetching new jobs every 6 hours...');
+    await this.getAllJobs()
+  });
+  

@@ -3,6 +3,8 @@ const Job = require('../Schemas/jobsSchema');
 const User = require('../Schemas/userSchema');
 const { notifyByEmail } = require('../Setups/sendEmail');
 const { JSDOM } = jsdom;
+const cron = require('node-cron');
+
 const categories = {
   "FullStack": ["react", "angular", "nodejs", "node", "mongodb", "javascript", "mearn", "mean"],
   "Flutter": ["flutter", "dart"],
@@ -50,6 +52,7 @@ exports.extractDatas = async (webContent) => {
           });
 
           await newJob.save();
+         
           
           
           console.log(`Saved new job in category ${matchedCategory}: ${jobTitle}`);
@@ -102,7 +105,4 @@ const getEmailUpdated = async () => {
     }
   }
 };
-
-
-
 getEmailUpdated();
